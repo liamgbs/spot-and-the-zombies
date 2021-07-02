@@ -1,0 +1,15 @@
+{
+  "name": "bored",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "liamgbs",
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.1",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "start": "npm run build && node build/index.js",
+    "build": "tsc"
+  }
+}

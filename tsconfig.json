@@ -1,0 +1,11 @@
+// TypeScript Configuration
+{
+  "extends": "@tsconfig/node14/tsconfig.json",
+  "compilerOptions": {
+      // Directory Settings
+      "rootDir": "src",
+      "outDir": "build"
+  },
+  "types": ["src/types/game.d.ts"],
+  "include": ["src/**/*"]
+}
