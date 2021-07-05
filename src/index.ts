@@ -1,39 +1,32 @@
 import { makeGrid } from "./grid"
-import { close, getKey } from "./terminal";
+import { makeGame } from "./game"
 import { makePlayer } from "./player"
+import { close, getKey, write } from "./terminal";
+import { makeZombies } from "./zombies";
+import { makePickups } from "./pickups";
 
-const dimX = 50;
-const dimY = 20;
 
-const player = makePlayer(dimX, dimY);
-const grid = makeGrid(dimX, dimY, player);
+const player = makePlayer();
+const zombies = makeZombies();
+const pickups = makePickups();
+
+const game = makeGame(player, zombies, pickups);
+const grid = makeGrid(player, zombies, pickups, game);
+
+
 
 (async () => {
 
-    while (true) {
+    while (!game.hasLost()) {
         grid.draw();
-
-        const key = await getKey();
-
-        switch (key) {
-            case 'w':
-                player.up();
-                break;
-            case 'a':
-                player.left();
-                break;
-            case 's':
-                player.down();
-                break;
-            case 'd':
-                player.right()
-                break;
-            case 'q':
-                return close();
-            default:
-                break;
-        }
-
+        game.tick(await getKey());
     }
+
+    grid.draw();
+    
+    write('\nYou have lost!\n\n')
+
+    close();
+    process.exit(0);
     
 })()

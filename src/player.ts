@@ -1,8 +1,12 @@
-export const makePlayer = (dimX: number, dimY: number) : Player => {
+import { GRID_DIMENSION_X, GRID_DIMENSION_Y } from "./consts";
+
+
+
+export const makePlayer = (x?: number, y?: number) : Player => {
 
     const player: PlayerData = {
-        x: 1,
-        y: 1,
+        x: x ?? 1,
+        y: y ?? 1,
     };
 
     const get = () => player;
@@ -14,7 +18,7 @@ export const makePlayer = (dimX: number, dimY: number) : Player => {
     }
 
     const down = () => {
-        if (player.y < dimY - 2) {
+        if (player.y < GRID_DIMENSION_Y - 2) {
             player.y += 1;
         }
     }
@@ -26,7 +30,7 @@ export const makePlayer = (dimX: number, dimY: number) : Player => {
     }
 
     const right = () => {
-        if (player.x < dimX - 2) {
+        if (player.x < GRID_DIMENSION_X - 2) {
             player.x += 1;
         }
     }
