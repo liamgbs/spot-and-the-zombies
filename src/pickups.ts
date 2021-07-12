@@ -1,15 +1,29 @@
-import { getRandomX, getRandomY } from "./utils";
+import { generateUniqueId, getRandomX, getRandomY } from "./utils";
 
 export const makePickups = () : Pickups => {
     let pickups : Pickup[] = [];
 
+    const generateCommon = () : Pick<Pickup, "id" | "x" | "y"> => {
+        return {
+            id: generateUniqueId(),
+            x: getRandomX(),
+            y: getRandomY()
+        }
+    }
+
     const addPill = () => {
         pickups.push({
             type: "pill",
-            id: Math.random().toString(),
             points: 100,
-            x: getRandomX(),
-            y: getRandomY()
+            ...generateCommon()
+        });
+    }
+
+    const addSword = () => {
+        if (!!pickups.find(p => p.type === "sword")) return;
+        pickups.push({
+            type: "sword",
+            ...generateCommon()
         });
     }
 
@@ -20,5 +34,6 @@ export const makePickups = () : Pickups => {
         get,
         remove,
         addPill,
+        addSword
     }
 }

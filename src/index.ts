@@ -4,16 +4,16 @@ import { makePlayer } from "./player"
 import { close, getKey, write } from "./terminal";
 import { makeZombies } from "./zombies";
 import { makePickups } from "./pickups";
+import { makeModifiers } from "./modifiers";
 
 
 const player = makePlayer();
 const zombies = makeZombies();
 const pickups = makePickups();
+const modifiers = makeModifiers();
 
-const game = makeGame(player, zombies, pickups);
-const grid = makeGrid(player, zombies, pickups, game);
-
-
+const game = makeGame(player, zombies, pickups, modifiers);
+const grid = makeGrid(player, zombies, pickups, modifiers, game);
 
 (async () => {
 

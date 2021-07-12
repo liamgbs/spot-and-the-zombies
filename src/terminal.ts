@@ -17,5 +17,6 @@ type OutputColour = keyof typeof Colour;
 //https://stackoverflow.com/a/41407246/11034096
 enum Colour {
     default = '0m',
-    green = '32m'
+    green = '32m',
+    red = '31m'
 }
