@@ -1,8 +1,6 @@
 import { GRID_DIMENSION_X, GRID_DIMENSION_Y } from "./consts";
 import { generateUniqueId } from "./utils";
 
-
-
 export const makePlayer = (x?: number, y?: number) : Player => {
 
     const player: PlayerData = {

@@ -1,4 +1,4 @@
-import { SWORD_DANGER_DURATION } from "./consts";
+import { SWORD_DANGER_DURATION, ZOMBIE_COUNT } from "./consts";
 import { inSamePosition } from "./utils";
 
 
@@ -23,7 +23,14 @@ export const makeGame = (Player: Player, Zombies: Zombies, Pickups: Pickups, Mod
 
     })();
 
-    Pickups.addPill();
+    const init = () => {
+        Pickups.addPill();
+
+        for (let i = 0; i < ZOMBIE_COUNT; i++) {
+            Zombies.add();
+        }
+
+    }
 
     const hasLost = () => {
         const player = Player.get();
@@ -56,7 +63,9 @@ export const makeGame = (Player: Player, Zombies: Zombies, Pickups: Pickups, Mod
                 break;
         }
 
-        if (modifiers.isDangerous) {
+        Zombies.move();
+
+        if (!!modifiers.isDangerousUntil) {
             Zombies.get().forEach(z => {
                 const zombie = z.get()
                 if (inSamePosition(zombie, player)) {
@@ -64,8 +73,6 @@ export const makeGame = (Player: Player, Zombies: Zombies, Pickups: Pickups, Mod
                 }
             })
         }
-
-        Zombies.move();
 
         Pickups.get().forEach((pickup) => {
             if (!inSamePosition(player, pickup)) return;
@@ -91,12 +98,17 @@ export const makeGame = (Player: Player, Zombies: Zombies, Pickups: Pickups, Mod
             Pickups.addSword();
         }
 
+        if (gameData.moves % 20 === 0) {
+            Zombies.add();
+        }
+
     }
 
     const getData = () => gameData
 
     return {
         tick,
+        init,
         hasLost,
         getData
     }

@@ -5,7 +5,7 @@ import { inSamePosition } from "./utils";
 export const makeGrid = (Player: Player, Zombies: Zombies, Pickups: Pickups, Modifiers: Modifiers, Game: Game) => {
     const draw = () => {
 
-        // clear();
+        clear();
 
         const player = Player.get();
         const zombies = Zombies.get();
@@ -16,6 +16,12 @@ export const makeGrid = (Player: Player, Zombies: Zombies, Pickups: Pickups, Mod
         write(`Score: ${gameData.points}\n`);
         write(`Moves: ${gameData.moves}\n`);
         
+        if (modifierData.isDangerousUntil) {
+            write(`Dangerous`, 'red')
+        }
+
+        write('\n\n')
+
         for (let y = 0; y < GRID_DIMENSION_Y; y++) {
             for (let x = 0; x < GRID_DIMENSION_X; x++) {
 
@@ -40,7 +46,7 @@ export const makeGrid = (Player: Player, Zombies: Zombies, Pickups: Pickups, Mod
                     }
 
                     if (inSamePosition(player, { x, y })) {
-                        return write(PLAYER_CHAR, modifierData.isDangerous ? 'red' : 'default')
+                        return write(PLAYER_CHAR, modifierData.isDangerousUntil ? 'red' : 'default')
                     }
 
                     if (x === 0 || x === GRID_DIMENSION_X - 1) {

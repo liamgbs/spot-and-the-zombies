@@ -1,15 +1,17 @@
 export const makeModifiers = () : Modifiers => {
     const modifiers : ModifierData = {
-        isDangerous: false
+        isDangerousUntil: undefined
     }
 
     let modifierFns : Array<(gd: GameData) => boolean | void> = [];
 
     const makePlayerDangerousUntil = (moves: number) => {
-        modifiers.isDangerous = true;
+        modifiers.isDangerousUntil = moves;
+        
         modifierFns.push((gameData) => {
-            if (gameData.moves === moves) {
-                modifiers.isDangerous = false;
+            if (!modifiers.isDangerousUntil) return true;
+            if (gameData.moves >= modifiers.isDangerousUntil) {
+                modifiers.isDangerousUntil = undefined;
                 return true;
             }
         })

@@ -3,12 +3,7 @@ import { makePlayer } from "./player"
 import { getRandomX, getRandomY, getRandomNumberBetween } from "./utils";
 
 export const makeZombies = () : Zombies => {
-    let zombies = Array(ZOMBIE_COUNT).fill(0).map(() =>
-        makePlayer(
-            getRandomX(),
-            getRandomY()
-        )
-    );
+    let zombies : Player[] = [];
 
     const move = () => {
         for (const zombie of zombies) {
@@ -27,6 +22,13 @@ export const makeZombies = () : Zombies => {
         }
     };
 
+    const add = () => {
+        zombies.push(makePlayer(
+            getRandomX(),
+            getRandomY()
+        ))
+    }
+
     const kill = (id: string) => {
         zombies = zombies.filter(z => z.get().id !== id);
     }
@@ -36,6 +38,7 @@ export const makeZombies = () : Zombies => {
     return {
         move,
         get,
+        add,
         kill
     }
 

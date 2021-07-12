@@ -16,6 +16,7 @@ const game = makeGame(player, zombies, pickups, modifiers);
 const grid = makeGrid(player, zombies, pickups, modifiers, game);
 
 (async () => {
+    game.init();
 
     while (!game.hasLost()) {
         grid.draw();
@@ -25,6 +26,12 @@ const grid = makeGrid(player, zombies, pickups, modifiers, game);
     grid.draw();
     
     write('\nYou have lost!\n\n')
+
+    console.log(JSON.stringify({
+        player: player.get(),
+        zombies: zombies.get().map(z => z.get()),
+    }));
+    
 
     close();
     process.exit(0);

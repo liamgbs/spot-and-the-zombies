@@ -16,6 +16,7 @@ interface Player {
 
 interface Zombies {
     get(): Player[];
+    add():void;
     move(): void;
     kill(id: string): void;
 }
@@ -26,6 +27,7 @@ interface GameData {
 }
 interface Game {
     getData(): GameData;
+    init():void;
     tick(key: string): void;
     hasLost(): boolean;
 }
@@ -43,7 +45,7 @@ interface Pickups {
 }
 
 interface ModifierData {
-    isDangerous: boolean
+    isDangerousUntil: number | undefined;
 }
 
 interface Modifiers {
